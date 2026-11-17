@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/useAuth';
 import './account.css';
@@ -48,6 +48,7 @@ const accountLinks = [
 ];
 
 function AccountLayout() {
+  const [logoutError, setLogoutError] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
   const { signOut, user } = useAuth();
@@ -64,9 +65,14 @@ function AccountLayout() {
     };
   }, [page.title]);
 
-  const handleLogout = () => {
-    signOut();
-    navigate('/', { replace: true });
+  const handleLogout = async () => {
+    setLogoutError('');
+    try {
+      await signOut();
+      navigate('/', { replace: true });
+    } catch (error) {
+      setLogoutError(error.message || 'We could not sign you out. Please try again.');
+    }
   };
 
   return (
@@ -112,6 +118,7 @@ function AccountLayout() {
             ))}
           </nav>
           <button type="button" className="account-sidebar__logout" onClick={handleLogout}>Log out</button>
+          {logoutError ? <p className="account-alert account-alert--error" role="alert">{logoutError}</p> : null}
         </aside>
 
         <div className="account-content">

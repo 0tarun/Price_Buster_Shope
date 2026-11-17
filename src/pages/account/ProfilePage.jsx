@@ -85,8 +85,8 @@ function ProfilePage() {
     setSaving(true);
     setError('');
     try {
-      await updateProfile(profile);
-      const committedProfile = { ...profile };
+      const savedProfile = await updateProfile(profile);
+      const committedProfile = { ...emptyProfile, ...savedProfile };
       setProfile(committedProfile);
       setSavedProfile(committedProfile);
       updateUser(committedProfile);

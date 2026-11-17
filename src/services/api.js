@@ -1,34 +1,41 @@
 import { products } from '../data/products';
-import {
-  addresses as demoAddresses,
-  demoPassword,
-  demoUser,
-  orders as demoOrders,
-  preferences as defaultPreferences,
-  wishlistProductIds,
-} from '../data/account';
+import { preferences as defaultPreferences } from '../data/account';
 
 const apiCache = new Map();
 const apiUrl = import.meta.env.VITE_API_URL;
-const PROFILE_KEY = 'price-buster-profile';
+const authApiUrl = import.meta.env.VITE_AUTH_API_URL
+  || (import.meta.env.DEV ? 'http://localhost:5000/api/auth' : '/api/auth');
 const ADDRESS_KEY = 'price-buster-addresses';
 const PREFERENCES_KEY = 'price-buster-preferences';
-const PASSWORD_KEY = 'price-buster-password-hash';
 const WISHLIST_KEY = 'price-buster-wishlist';
 
 async function fetchJson(url, options = {}) {
+  const { headers: extraHeaders, ...requestOptions } = options;
   const response = await fetch(url, {
-    headers: { 'Content-Type': 'application/json', ...(options.headers || {}) },
-    ...options,
+    ...requestOptions,
+    credentials: 'include',
+    headers: {
+      ...(options.body ? { 'Content-Type': 'application/json' } : {}),
+      ...(extraHeaders || {}),
+    },
   });
 
-  if (!response.ok) {
-    const message = `Request failed: ${response.status}`;
-    throw new Error(message);
+  let data = null;
+  if (response.status !== 204) {
+    try {
+      data = await response.json();
+    } catch {
+      if (response.ok) throw new Error('The server returned an invalid response.');
+    }
   }
 
-  if (response.status === 204) return null;
-  return response.json();
+  if (!response.ok) {
+    const error = new Error(data?.message || `Request failed: ${response.status}`);
+    error.status = response.status;
+    throw error;
+  }
+
+  return data;
 }
 
 function readLocal(key, fallback) {
@@ -41,76 +48,61 @@ function writeLocal(key, value) {
   return value;
 }
 
-async function hashPassword(value) {
-  const bytes = new TextEncoder().encode(value);
-  const digest = await window.crypto.subtle.digest('SHA-256', bytes);
-  return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, '0')).join('');
+export async function login(email, password, rememberMe) {
+  return fetchJson(`${authApiUrl}/login`, {
+    method: 'POST',
+    body: JSON.stringify({ email, password, rememberMe }),
+  });
 }
 
-export async function login(email, password) {
-  if (apiUrl) {
-    return fetchJson(`${apiUrl}/auth/login`, {
-      method: 'POST',
-      body: JSON.stringify({ email, password }),
-    });
-  }
-
-  const profile = await getProfile();
-  if (email.trim().toLowerCase() !== profile.email.toLowerCase() || !(await verifyPassword(password))) {
-    throw new Error('Email or password is incorrect.');
-  }
-
-  return profile;
+export async function registerAccount({ name, email, password }) {
+  return fetchJson(`${authApiUrl}/register`, {
+    method: 'POST',
+    body: JSON.stringify({ name, email, password }),
+  });
 }
 
-async function verifyPassword(password) {
-  const savedHash = window.localStorage.getItem(PASSWORD_KEY);
-  if (!savedHash) {
-    if (password !== demoPassword) return false;
-    window.localStorage.setItem(PASSWORD_KEY, await hashPassword(demoPassword));
-    return true;
-  }
-  return (await hashPassword(password)) === savedHash;
+export async function getCurrentUser() {
+  return fetchJson(`${authApiUrl}/me`);
+}
+
+export async function logout() {
+  return fetchJson(`${authApiUrl}/logout`, { method: 'POST' });
 }
 
 export async function getProfile() {
-  if (apiUrl) return fetchJson(`${apiUrl}/account/profile`);
-  return readLocal(PROFILE_KEY, { ...demoUser });
+  const response = await getCurrentUser();
+  return response.user;
 }
 
 export async function updateProfile(profile) {
-  if (apiUrl) {
-    return fetchJson(`${apiUrl}/account/profile`, {
-      method: 'PUT',
-      body: JSON.stringify(profile),
-    });
-  }
-  return writeLocal(PROFILE_KEY, profile);
+  const response = await fetchJson(`${authApiUrl}/me`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      name: profile.name,
+      email: profile.email,
+      phone: profile.phone,
+      dateOfBirth: profile.dateOfBirth,
+    }),
+  });
+  return response.user;
 }
 
 export async function updatePassword({ currentPassword, newPassword }) {
-  if (apiUrl) {
-    return fetchJson(`${apiUrl}/account/password`, {
-      method: 'PUT',
-      body: JSON.stringify({ currentPassword, newPassword }),
-    });
-  }
-
-  if (!(await verifyPassword(currentPassword))) {
-    throw new Error('Your current password is incorrect.');
-  }
-  window.localStorage.setItem(PASSWORD_KEY, await hashPassword(newPassword));
-  return { ok: true };
+  return fetchJson(`${authApiUrl}/password`, {
+    method: 'PUT',
+    body: JSON.stringify({ currentPassword, newPassword }),
+  });
 }
 
 export async function getOrders() {
   if (apiUrl) return fetchJson(`${apiUrl}/account/orders`);
-  return [...demoOrders];
+  return [];
 }
 
 export async function getAddresses() {
   if (apiUrl) return fetchJson(`${apiUrl}/account/addresses`);
-  return readLocal(ADDRESS_KEY, demoAddresses.map((address) => ({ ...address })));
+  return readLocal(ADDRESS_KEY, []);
 }
 
 export async function saveAddress(address) {
@@ -168,7 +160,7 @@ export async function getWishlist() {
     const response = await fetchJson(`${apiUrl}/account/wishlist`);
     return response.productIds || response;
   }
-  return readLocal(WISHLIST_KEY, [...wishlistProductIds]);
+  return readLocal(WISHLIST_KEY, []);
 }
 
 export async function saveWishlist(productIds) {
