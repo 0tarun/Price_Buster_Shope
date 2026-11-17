@@ -1,0 +1,16 @@
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: top 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.site-header--topbar-hidden {
+  top: calc(-1 * var(--topbar-height, 87px));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header {
+    transition-duration: 0.01ms;
+  }
+}

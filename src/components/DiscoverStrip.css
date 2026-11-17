@@ -1,0 +1,33 @@
+.discover-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+  margin-top: 56px;
+  padding: 16px 24px;
+  border-radius: 16px;
+  background: var(--beige);
+}
+
+.discover-strip__text {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.discover-strip__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--burgundy);
+}
+
+@media (max-width: 640px) {
+  .discover-strip {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
