@@ -5,6 +5,18 @@
       "destination": "https://price-buster-shope-backend.onrender.com/api/auth/:path*"
     },
     {
+      "source": "/api/products/:path*",
+      "destination": "https://price-buster-shope-backend.onrender.com/api/products/:path*"
+    },
+    {
+      "source": "/api/site-settings/:path*",
+      "destination": "https://price-buster-shope-backend.onrender.com/api/site-settings/:path*"
+    },
+    {
+      "source": "/api/admin/:path*",
+      "destination": "https://price-buster-shope-backend.onrender.com/api/admin/:path*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
