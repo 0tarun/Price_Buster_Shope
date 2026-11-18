@@ -1,11 +1,26 @@
 import { useEffect, useState } from 'react';
 import { ArrowUpRight, Play, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { productReviews } from '../data/products';
+import { getHomepageSettings } from '../services/api';
 import './Reviews.css';
 
 const Reviews = () => {
+  const [videos, setVideos] = useState([]);
   const [activeReview, setActiveReview] = useState(null);
+
+  useEffect(() => {
+    let active = true;
+    getHomepageSettings()
+      .then(({ customerVideos = [] }) => {
+        if (active) setVideos(customerVideos);
+      })
+      .catch(() => {
+        if (active) setVideos([]);
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   useEffect(() => {
     if (!activeReview) {
@@ -22,6 +37,8 @@ const Reviews = () => {
     return () => window.removeEventListener('keydown', handleEscape);
   }, [activeReview]);
 
+  if (!videos.length) return null;
+
   return (
     <section className="reviews">
       <div className="reviews__header">
@@ -36,17 +53,17 @@ const Reviews = () => {
       </div>
 
       <div className="reviews__grid">
-        {productReviews.map(({ image, quote, author, product }) => (
-          <article key={product} className="review-card">
+        {videos.map((review) => (
+          <article key={review.id} className="review-card">
             <div className="review-card__media">
-              <img src={image} alt={product} loading="lazy" />
-              <button type="button" className="review-card__play" aria-label={`Play ${quote}`} onClick={() => setActiveReview({ image, quote, author, product })}>
+              <video src={review.videoUrl} aria-label={`${review.product} review by ${review.author}`} preload="metadata" playsInline />
+              <button type="button" className="review-card__play" aria-label={`Play ${review.quote}`} onClick={() => setActiveReview(review)}>
                 <Play size={18} fill="currentColor" strokeWidth={0} />
               </button>
             </div>
             <div className="review-card__caption">
-              <p className="review-card__quote">“{quote}”</p>
-              <div className="review-card__meta">{author} · {product}</div>
+              <p className="review-card__quote">“{review.quote}”</p>
+              <div className="review-card__meta">{review.author} · {review.product}</div>
             </div>
           </article>
         ))}
@@ -58,9 +75,7 @@ const Reviews = () => {
             <button type="button" className="video-modal__close" onClick={() => setActiveReview(null)} aria-label="Close video preview">
               <X size={18} strokeWidth={2} />
             </button>
-            <div className="video-modal__placeholder">
-              <Play size={28} fill="currentColor" strokeWidth={0} />
-            </div>
+            <video className="video-modal__video" controls autoPlay playsInline src={activeReview.videoUrl} />
             <h3>{activeReview.quote}</h3>
             <p>{activeReview.author} · {activeReview.product}</p>
           </div>

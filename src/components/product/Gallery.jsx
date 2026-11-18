@@ -5,7 +5,10 @@ import { Lightbox } from './Lightbox';
 const productVideoUrl = 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4';
 
 export function Gallery({ product }) {
-  const images = useMemo(() => Array.isArray(product?.images) && product.images.length ? product.images : [product?.image], [product]);
+  const images = useMemo(() => {
+    if (Array.isArray(product?.images) && product.images.length) return product.images.filter(Boolean);
+    return product?.image ? [product.image] : [];
+  }, [product]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxMode, setLightboxMode] = useState('image');
@@ -27,7 +30,7 @@ export function Gallery({ product }) {
       <div className="product-gallery__main">
         {isVideoActive && lightboxOpen ? (
           <video className="product-gallery__video-preview" controls src={productVideoUrl} />
-        ) : (
+        ) : images.length ? (
           <img
             src={images[activeIndex]}
             alt={`${product?.name || 'Product'} view ${activeIndex + 1}`}
@@ -35,10 +38,14 @@ export function Gallery({ product }) {
             fetchPriority="high"
             className="product-gallery__image"
           />
+        ) : (
+          <div className="product-gallery__placeholder">ছবি যোগ করা হয়নি</div>
         )}
-        <button type="button" className="product-gallery__zoom" aria-label="Open product image gallery" onClick={() => { setLightboxMode('image'); setLightboxOpen(true); }}>
-          <Search size={16} strokeWidth={2} />
-        </button>
+        {images.length ? (
+          <button type="button" className="product-gallery__zoom" aria-label="Open product image gallery" onClick={() => { setLightboxMode('image'); setLightboxOpen(true); }}>
+            <Search size={16} strokeWidth={2} />
+          </button>
+        ) : null}
       </div>
 
       <div className="product-gallery__thumbs" role="tablist" aria-label="Product gallery thumbnails">

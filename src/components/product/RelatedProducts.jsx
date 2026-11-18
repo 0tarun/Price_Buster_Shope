@@ -16,7 +16,9 @@ export function RelatedProducts({ products = [] }) {
       <div className="product-related__grid">
         {products.map((product) => (
           <Link key={product.id} to={`/product/${product.id}`} className="product-related__card" aria-label={`View ${product.name}`}>
-            <img src={product.image} alt={product.name} loading="lazy" className="product-related__image" />
+            {product.image
+              ? <img src={product.image} alt={product.name} loading="lazy" className="product-related__image" />
+              : <div className="product-related__image product-related__image--placeholder">ছবি যোগ করা হয়নি</div>}
             <div className="product-related__content">
               <span className="product-related__name">{product.name}</span>
               <span className="product-related__price">{formatPrice(product.price || product.current || 0)}</span>

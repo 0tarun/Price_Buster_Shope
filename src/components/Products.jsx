@@ -1,13 +1,20 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ArrowRight, Heart, Plus, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { products as catalog } from '../data/products';
+import { getProducts, getWishlist, saveWishlist } from '../services/api';
 import { useCart } from '../context/useCart';
 import './Products.css';
 
 const formatPrice = (value) => `৳ ${value.toLocaleString('en-BD')}`;
 
-export function ProductCard({ product, variant = 'default', onRemoveFromWishlist }) {
+export function ProductCard({
+  product,
+  variant = 'default',
+  onRemoveFromWishlist,
+  isWishlisted = false,
+  onToggleWishlist,
+  wishlistBusy = false,
+}) {
   const { addToCart } = useCart();
   const [added, setAdded] = useState(false);
   const isWishlist = variant === 'wishlist';
@@ -24,7 +31,7 @@ export function ProductCard({ product, variant = 'default', onRemoveFromWishlist
       {isWishlist ? (
         <div className="product-card__wishlist-media">
           <Link to={`/product/${product.id}`} className="product-card__image-box" aria-label={`View ${product.name}`}>
-            <img src={product.image} alt={product.name} loading="lazy" />
+            {product.image ? <img src={product.image} alt={product.name} loading="lazy" /> : <div className="product-card__image-placeholder">ছবি যোগ করা হয়নি</div>}
           </Link>
           <button
             type="button"
@@ -36,10 +43,26 @@ export function ProductCard({ product, variant = 'default', onRemoveFromWishlist
           </button>
         </div>
       ) : (
-        <Link to={`/product/${product.id}`} className="product-card__image-box" aria-label={`View ${product.name}`}>
-          <span className="product-card__badge">−{product.badge}%</span>
-          <img src={product.image} alt={product.name} loading="lazy" />
-        </Link>
+        <div className="product-card__media">
+          <Link to={`/product/${product.id}`} className="product-card__image-box" aria-label={`View ${product.name}`}>
+            {Number(product.badge) > 0 ? <span className="product-card__badge">−{product.badge}%</span> : null}
+            {product.image ? <img src={product.image} alt={product.name} loading="lazy" /> : <div className="product-card__image-placeholder">ছবি যোগ করা হয়নি</div>}
+          </Link>
+          <button
+            type="button"
+            className={isWishlisted ? 'product-card__save product-card__save--active' : 'product-card__save'}
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              onToggleWishlist?.(product);
+            }}
+            disabled={wishlistBusy}
+            aria-label={isWishlisted ? `Remove ${product.name} from saved items` : `Save ${product.name} for later`}
+            aria-pressed={isWishlisted}
+          >
+            <Heart size={18} strokeWidth={1.8} fill={isWishlisted ? 'currentColor' : 'none'} />
+          </button>
+        </div>
       )}
 
       {!isWishlist ? (
@@ -68,7 +91,51 @@ export function ProductCard({ product, variant = 'default', onRemoveFromWishlist
 
 const Products = ({ category, query = '', resultsPromise, isSearch = false }) => {
   const [searchResult, setSearchResult] = useState(null);
+  const [allProducts, setAllProducts] = useState([]);
+  const [loadError, setLoadError] = useState('');
+  const [savedIds, setSavedIds] = useState([]);
+  const [wishlistBusyId, setWishlistBusyId] = useState('');
+  const { showToast } = useCart();
   const loading = Boolean(resultsPromise) && searchResult?.promise !== resultsPromise;
+
+  useEffect(() => {
+    let cancelled = false;
+    getProducts()
+      .then((items) => {
+        if (!cancelled) setAllProducts(items);
+      })
+      .catch((error) => {
+        if (!cancelled) setLoadError(error.message);
+      });
+    getWishlist()
+      .then((ids) => {
+        if (!cancelled) setSavedIds(ids);
+      })
+      .catch(() => {
+        if (!cancelled) setSavedIds([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const toggleWishlist = async (product) => {
+    if (wishlistBusyId) return;
+    setWishlistBusyId(product.id);
+    const alreadySaved = savedIds.includes(product.id);
+    const nextIds = alreadySaved
+      ? savedIds.filter((id) => id !== product.id)
+      : [...savedIds, product.id];
+    try {
+      await saveWishlist(nextIds);
+      setSavedIds(nextIds);
+      showToast(alreadySaved ? 'Removed from saved items' : 'Saved for later');
+    } catch (error) {
+      showToast(error.message || 'This item could not be saved.');
+    } finally {
+      setWishlistBusyId('');
+    }
+  };
 
   const visibleProducts = useMemo(() => {
     if (resultsPromise) {
@@ -76,11 +143,11 @@ const Products = ({ category, query = '', resultsPromise, isSearch = false }) =>
     }
 
     if (category) {
-      return catalog.filter((product) => product.category === category);
+      return allProducts.filter((product) => product.category === category);
     }
 
-    return catalog;
-  }, [category, resultsPromise, searchResult]);
+    return allProducts;
+  }, [allProducts, category, resultsPromise, searchResult]);
 
   useEffect(() => {
     let cancelled = false;
@@ -113,9 +180,19 @@ const Products = ({ category, query = '', resultsPromise, isSearch = false }) =>
       {loading ? (
         <div className="page-loader-wrap"><div className="page-loader">Loading products…</div></div>
       ) : (
-        <div className="products__grid">
-          {visibleProducts.length ? visibleProducts.map((product) => <ProductCard key={product.id} product={product} />) : <div className="products__empty">No products match your search yet.</div>}
-        </div>
+        loadError ? <div className="products__empty" role="alert">{loadError}</div> : (
+          <div className="products__grid">
+            {visibleProducts.length ? visibleProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                isWishlisted={savedIds.includes(product.id)}
+                wishlistBusy={wishlistBusyId === product.id}
+                onToggleWishlist={toggleWishlist}
+              />
+            )) : <div className="products__empty">No products have been added yet.</div>}
+          </div>
+        )
       )}
     </section>
   );

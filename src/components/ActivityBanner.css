@@ -17,6 +17,10 @@
   object-fit: cover;
 }
 
+.activity-banner__thumb--placeholder {
+  background: var(--beige-dark);
+}
+
 .activity-banner__text {
   display: flex;
   flex: 1;

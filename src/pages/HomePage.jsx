@@ -5,10 +5,11 @@ import Reviews from '../components/Reviews';
 import ActivityBanner from '../components/ActivityBanner';
 import Products from '../components/Products';
 import DiscoverStrip from '../components/DiscoverStrip';
+import './HomePage.css';
 
 function HomePage() {
   return (
-    <>
+    <div className="home-page">
       <Hero />
       <TrustStrip />
       <Brands />
@@ -16,7 +17,7 @@ function HomePage() {
       <ActivityBanner />
       <Products />
       <DiscoverStrip />
-    </>
+    </div>
   );
 }
 

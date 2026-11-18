@@ -1,10 +1,11 @@
-import { products } from '../data/products';
 import { preferences as defaultPreferences } from '../data/account';
 
 const apiCache = new Map();
 const apiUrl = import.meta.env.VITE_API_URL;
+const catalogApiUrl = apiUrl || (import.meta.env.DEV ? 'http://localhost:5000/api' : '/api');
 const authApiUrl = import.meta.env.VITE_AUTH_API_URL
   || (import.meta.env.DEV ? 'http://localhost:5000/api/auth' : '/api/auth');
+const ADMIN_KEY_STORAGE = 'price-buster-admin-key';
 const ADDRESS_KEY = 'price-buster-addresses';
 const PREFERENCES_KEY = 'price-buster-preferences';
 const WISHLIST_KEY = 'price-buster-wishlist';
@@ -173,22 +174,102 @@ export async function saveWishlist(productIds) {
   return writeLocal(WISHLIST_KEY, productIds);
 }
 
-async function getLocalProducts() {
-  return [...products];
-}
-
 export async function getProducts() {
   if (apiCache.has('products')) {
     return apiCache.get('products');
   }
 
-  const request = apiUrl
-    ? fetchJson(`${apiUrl}/products`).catch(() => getLocalProducts())
-    : getLocalProducts();
-
-  const result = await request;
+  const result = await fetchJson(`${catalogApiUrl}/products`);
   apiCache.set('products', result);
   return result;
+}
+
+export async function getHomepageSettings() {
+  return fetchJson(`${catalogApiUrl}/site-settings/homepage`);
+}
+
+export function hasAdminKey() {
+  return Boolean(window.sessionStorage.getItem(ADMIN_KEY_STORAGE));
+}
+
+function getAdminHeaders() {
+  const key = window.sessionStorage.getItem(ADMIN_KEY_STORAGE);
+  if (!key) throw new Error('Please sign in to the admin dashboard.');
+  return { 'x-admin-key': key };
+}
+
+export async function loginAdmin(key) {
+  await fetchJson(`${catalogApiUrl}/admin/login`, {
+    method: 'POST',
+    body: JSON.stringify({ key }),
+  });
+  window.sessionStorage.setItem(ADMIN_KEY_STORAGE, key);
+}
+
+export function logoutAdmin() {
+  window.sessionStorage.removeItem(ADMIN_KEY_STORAGE);
+}
+
+export async function uploadAdminImage(file) {
+  return uploadAdminMedia(file);
+}
+
+export async function uploadAdminVideo(file) {
+  return uploadAdminMedia(file);
+}
+
+async function uploadAdminMedia(file) {
+  const response = await fetch(`${catalogApiUrl}/admin/upload`, {
+    method: 'POST',
+    headers: getAdminHeaders(),
+    body: (() => {
+      const formData = new FormData();
+      formData.append('image', file);
+      return formData;
+    })(),
+  });
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.message || `Upload failed: ${response.status}`);
+  return data;
+}
+
+export async function getAdminProducts() {
+  return fetchJson(`${catalogApiUrl}/admin/products`, { headers: getAdminHeaders() });
+}
+
+export async function getAdminHomepageSettings() {
+  return fetchJson(`${catalogApiUrl}/admin/homepage`, { headers: getAdminHeaders() });
+}
+
+export async function saveAdminProduct(product, mongoId) {
+  const saved = await fetchJson(
+    `${catalogApiUrl}/admin/products${mongoId ? `/${encodeURIComponent(mongoId)}` : ''}`,
+    {
+      method: mongoId ? 'PUT' : 'POST',
+      headers: getAdminHeaders(),
+      body: JSON.stringify(product),
+    },
+  );
+  apiCache.delete('products');
+  apiCache.delete(`product:${saved.id}`);
+  return saved;
+}
+
+export async function deleteAdminProduct(mongoId) {
+  await fetchJson(`${catalogApiUrl}/admin/products/${encodeURIComponent(mongoId)}`, {
+    method: 'DELETE',
+    headers: getAdminHeaders(),
+  });
+  apiCache.delete('products');
+}
+
+export async function saveHomepageSettings(homepage) {
+  const response = await fetchJson(`${catalogApiUrl}/admin/homepage`, {
+    method: 'PUT',
+    headers: getAdminHeaders(),
+    body: JSON.stringify(homepage),
+  });
+  return response;
 }
 
 export async function getProduct(id) {

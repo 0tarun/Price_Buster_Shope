@@ -17,6 +17,7 @@ const AddressesPage = lazy(() => import('./pages/account/AddressesPage'));
 const WishlistPage = lazy(() => import('./pages/account/WishlistPage'));
 const SettingsPage = lazy(() => import('./pages/account/SettingsPage'));
 const LoginPage = lazy(() => import('./pages/account/LoginPage'));
+const AdminPage = lazy(() => import('./pages/AdminPage'));
 
 const genericCopy = {
   blog: {
@@ -68,6 +69,7 @@ function SuspendedPage({ children }) {
 function App() {
   return (
     <Routes>
+      <Route path="admin" element={<SuspendedPage><AdminPage /></SuspendedPage>} />
       <Route element={<Layout />}>
         <Route index element={<HomePage />} />
         <Route path="blog" element={<GenericPage {...genericCopy.blog} />} />

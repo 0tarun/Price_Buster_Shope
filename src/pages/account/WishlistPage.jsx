@@ -2,20 +2,25 @@ import { useEffect, useState } from 'react';
 import { Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ProductCard } from '../../components/Products';
-import { products } from '../../data/products';
 import { useCart } from '../../context/useCart';
-import { getWishlist, saveWishlist } from '../../services/api';
+import { getProducts, getWishlist, saveWishlist } from '../../services/api';
 
 function WishlistPage() {
   const [savedIds, setSavedIds] = useState([]);
+  const [products, setProducts] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
   const { showToast } = useCart();
 
   useEffect(() => {
     let active = true;
-    getWishlist()
-      .then((result) => { if (active) setSavedIds(result); })
+    Promise.all([getWishlist(), getProducts()])
+      .then(([result, catalog]) => {
+        if (active) {
+          setSavedIds(result);
+          setProducts(catalog);
+        }
+      })
       .catch((loadError) => { if (active) setError(loadError.message || 'We could not load your wishlist.'); })
       .finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
