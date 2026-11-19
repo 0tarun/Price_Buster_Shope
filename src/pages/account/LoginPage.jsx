@@ -142,7 +142,7 @@ function LoginPage() {
                       onClick={() => setPasswordVisible((visible) => !visible)}
                       aria-label={passwordVisible ? 'Hide password' : 'Show password'}
                     >
-                      {passwordVisible ? <EyeOff size={17} /> : <Eye size={17} />}
+                      {passwordVisible ? <EyeOff size="1.0625rem" /> : <Eye size="1.0625rem" />}
                     </button>
                   </span>
                 </label>
@@ -186,7 +186,7 @@ function LoginPage() {
                     onClick={() => setPasswordVisible((visible) => !visible)}
                     aria-label={passwordVisible ? 'Hide password' : 'Show password'}
                   >
-                    {passwordVisible ? <EyeOff size={17} /> : <Eye size={17} />}
+                    {passwordVisible ? <EyeOff size="1.0625rem" /> : <Eye size="1.0625rem" />}
                   </button>
                 </span>
               </label>
@@ -208,7 +208,7 @@ function LoginPage() {
 
             <button className="account-button account-login__submit" type="submit" disabled={submitting}>
               {submitting ? (isRegistering ? 'Creating account…' : 'Signing in…') : (isRegistering ? 'Create account' : 'Log in')}
-              {!submitting ? <ArrowRight size={15} /> : null}
+              {!submitting ? <ArrowRight size="0.9375rem" /> : null}
             </button>
           </form>
 

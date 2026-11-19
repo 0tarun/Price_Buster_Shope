@@ -11,7 +11,7 @@ function GenericPage({ title, eyebrow, description, cta }) {
         {cta && (
           <Link to="/" className="primary-button">
             {cta}
-            <ArrowRight size={16} strokeWidth={2} />
+            <ArrowRight size="1rem" strokeWidth={2} />
           </Link>
         )}
       </div>

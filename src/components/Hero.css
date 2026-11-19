@@ -1,17 +1,17 @@
 .hero-grid {
   display: grid;
-  grid-template-columns: clamp(220px, 17vw, 280px) minmax(0, 1fr) clamp(250px, 19vw, 320px);
-  gap: 18px;
-  min-height: 480px;
-  margin-top: 18px;
+  grid-template-columns: clamp(13.75rem, 16.3125rem, 17.5rem) minmax(0, 1fr) clamp(15.625rem, 18.24rem, 20rem);
+  gap: 1.125rem;
+  min-height: 30rem;
+  margin-top: 1.125rem;
 }
 
 .hero-grid--main:not(.hero-grid--side) {
-  grid-template-columns: clamp(220px, 17vw, 280px) minmax(0, 1fr);
+  grid-template-columns: clamp(13.75rem, 16.3125rem, 17.5rem) minmax(0, 1fr);
 }
 
 .hero-grid--side:not(.hero-grid--main) {
-  grid-template-columns: clamp(220px, 17vw, 280px) minmax(0, 1fr);
+  grid-template-columns: clamp(13.75rem, 16.3125rem, 17.5rem) minmax(0, 1fr);
 }
 
 .hero-grid:not(.hero-grid--main):not(.hero-grid--side) {
@@ -22,20 +22,20 @@
 .hero__sidebar,
 .hero__deal-card,
 .hero__banner {
-  border-radius: 16px;
+  border-radius: 1rem;
 }
 
 .hero__sidebar {
   display: flex;
   flex-direction: column;
-  min-height: 480px;
+  min-height: 30rem;
   background: var(--beige);
-  padding: 18px 8px 14px;
+  padding: 1.125rem var(--space-2) 0.875rem;
 }
 
 .hero__sidebar-title {
-  padding-left: 12px;
-  font-size: 11px;
+  padding-left: var(--space-3);
+  font-size: var(--text-small);
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -45,8 +45,8 @@
 .hero__sidebar-list {
   display: flex;
   flex-direction: column;
-  margin-top: 18px;
-  gap: 4px;
+  margin-top: 1.125rem;
+  gap: var(--space-1);
 }
 
 .hero__department {
@@ -54,9 +54,9 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  min-height: 42px;
-  padding: 0 10px;
-  border-radius: 8px;
+  min-height: 2.625rem;
+  padding: 0 0.625rem;
+  border-radius: 0.5rem;
   color: var(--text);
   transition: background 180ms ease, color 180ms ease, transform 180ms ease;
 }
@@ -64,17 +64,17 @@
 .hero__department:hover,
 .hero__department:focus-visible {
   background: rgba(74, 6, 38, 0.04);
-  transform: translateX(1px);
+  transform: translateX(0.0625rem);
 }
 
 .hero__department-main {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-3);
 }
 
 .hero__department span {
-  font-size: 13px;
+  font-size: var(--text-md);
   color: inherit;
 }
 
@@ -95,11 +95,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 0.375rem;
   margin-top: auto;
-  margin-bottom: 4px;
-  padding: 12px 14px;
-  font-size: 12px;
+  margin-bottom: var(--space-1);
+  padding: var(--space-3) 0.875rem;
+  font-size: var(--text-sm);
   font-weight: 600;
   color: var(--burgundy);
 }
@@ -107,7 +107,7 @@
 .hero__banner {
   position: relative;
   display: block;
-  min-height: 480px;
+  min-height: 30rem;
   overflow: hidden;
   isolation: isolate;
   background: var(--beige-dark);
@@ -126,17 +126,17 @@
   position: relative;
   z-index: 1;
   display: flex;
-  width: min(68%, 620px);
-  min-height: 480px;
+  width: min(68%, 38.75rem);
+  min-height: 30rem;
   flex-direction: column;
   justify-content: center;
   min-width: 0;
-  padding: 38px 26px 76px;
+  padding: 2.375rem 1.625rem 4.75rem;
 }
 
 .hero__eyebrow {
   display: inline-block;
-  font-size: 11px;
+  font-size: var(--text-small);
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -144,8 +144,8 @@
 }
 
 .hero__banner-copy h1 {
-  margin-top: 18px;
-  font-size: clamp(2.8rem, 2.8vw, 4rem);
+  margin-top: 1.125rem;
+  font-size: clamp(2.45rem, 2.688rem, 3.5rem);
   line-height: 1.08;
   letter-spacing: -0.05em;
   color: var(--white);
@@ -153,9 +153,9 @@
 }
 
 .hero__banner-copy p {
-  margin-top: 18px;
+  margin-top: 1.125rem;
   max-width: 30ch;
-  font-size: 15px;
+  font-size: var(--text-lg);
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.88);
 }
@@ -166,42 +166,42 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  min-height: 46px;
-  padding: 0 20px;
-  border-radius: 8px;
+  gap: 0.625rem;
+  min-height: 2.875rem;
+  padding: 0 1.25rem;
+  border-radius: 0.5rem;
   background: var(--burgundy);
   color: var(--white);
-  font-size: 14px;
+  font-size: var(--text-body);
   font-weight: 600;
   transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
 }
 
 .hero__cta {
   align-self: flex-start;
-  min-height: 38px;
-  margin-top: 20px;
-  padding: 0 14px;
-  font-size: 12px;
+  min-height: 2.375rem;
+  margin-top: 1.25rem;
+  padding: 0 0.875rem;
+  font-size: var(--text-sm);
 }
 
 .hero__cta:hover,
 .hero__deal-button:hover,
 .primary-button:hover,
 .primary-button:focus-visible {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(74, 6, 38, 0.12);
+  transform: translateY(-0.0625rem);
+  box-shadow: 0 0.5rem 1.5rem rgba(74, 6, 38, 0.12);
 }
 
 .hero__sale-tag {
-  margin-top: 28px;
+  margin-top: 1.75rem;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--space-1);
 }
 
 .hero__sale-label {
-  font-size: 11px;
+  font-size: var(--text-small);
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -209,7 +209,7 @@
 }
 
 .hero__sale-value {
-  font-size: clamp(2rem, 2vw, 2.8rem);
+  font-size: clamp(1.75rem, 1.92rem, 2.45rem);
   line-height: 1.1;
   font-weight: 700;
   color: var(--white);
@@ -217,49 +217,49 @@
 
 .hero__slider-controls {
   position: absolute;
-  right: 24px;
-  bottom: 20px;
+  right: var(--space-6);
+  bottom: 1.25rem;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .hero__slider-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 2rem;
+  height: 2rem;
   border: 1px solid rgba(74, 6, 38, 0.12);
-  border-radius: 999px;
+  border-radius: 62.4375rem;
   background: rgba(255, 255, 255, 0.96);
   color: var(--burgundy);
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(18, 8, 13, 0.14);
+  box-shadow: 0 0.125rem 0.5rem rgba(18, 8, 13, 0.14);
   transition: background 160ms ease, transform 160ms ease;
 }
 
 .hero__slider-button:hover {
-  transform: translateY(-1px);
+  transform: translateY(-0.0625rem);
   background: var(--white);
 }
 
 .hero__slider-button:focus-visible,
 .hero__dot:focus-visible {
-  outline: 2px solid var(--white);
-  outline-offset: 3px;
+  outline: 0.125rem solid var(--white);
+  outline-offset: 0.1875rem;
 }
 
 .hero__slider-dots {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 .hero__dot {
   display: grid;
-  width: 8px;
-  height: 8px;
+  width: 0.5rem;
+  height: 0.5rem;
   padding: 0;
   border: none;
   border-radius: 50%;
@@ -269,18 +269,18 @@
 }
 
 .hero__dot--active {
-  width: 20px;
-  border-radius: 999px;
+  width: 1.25rem;
+  border-radius: 62.4375rem;
   background: var(--white);
 }
 
 .hero__counter {
   white-space: nowrap;
-  font-size: 11px;
+  font-size: var(--text-small);
   font-weight: 600;
   color: var(--white);
   letter-spacing: 0.08em;
-  text-shadow: 0 1px 4px rgba(18, 8, 13, 0.65);
+  text-shadow: 0 0.0625rem 0.25rem rgba(18, 8, 13, 0.65);
 }
 
 .hero__load-error {
@@ -306,7 +306,7 @@
   display: flex;
   overflow: hidden;
   isolation: isolate;
-  min-height: 480px;
+  min-height: 30rem;
   background: #26171d;
 }
 
@@ -321,11 +321,11 @@
 
 .hero__deal-label {
   align-self: flex-start;
-  padding: 7px 11px;
+  padding: 0.4375rem 0.6875rem;
   border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 999px;
+  border-radius: 62.4375rem;
   background: rgba(35, 12, 24, 0.35);
-  font-size: 11px;
+  font-size: var(--text-small);
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -347,9 +347,9 @@
   z-index: 1;
   display: flex;
   width: 100%;
-  min-height: 480px;
+  min-height: 30rem;
   flex-direction: column;
-  padding: 18px;
+  padding: 1.125rem;
 }
 
 .hero__deal-info {
@@ -358,32 +358,32 @@
 
 .hero__deal-card h3 {
   margin-top: 0;
-  font-size: 15px;
+  font-size: var(--text-lg);
   font-weight: 600;
   color: var(--white);
 }
 
 .hero__deal-card p {
-  margin-top: 8px;
-  font-size: 12px;
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
   color: rgba(255, 255, 255, 0.86);
 }
 
 .hero__deal-price-row {
   display: flex;
   align-items: baseline;
-  gap: 14px;
-  margin-top: 12px;
+  gap: 0.875rem;
+  margin-top: var(--space-3);
 }
 
 .hero__deal-price {
-  font-size: clamp(1.7rem, 1.8vw, 2.3rem);
+  font-size: clamp(1.4875rem, 1.728rem, 2.0125rem);
   font-weight: 700;
   color: var(--white);
 }
 
 .hero__deal-old-price {
-  font-size: 12px;
+  font-size: var(--text-sm);
   color: rgba(255, 255, 255, 0.72);
   text-decoration: line-through;
 }
@@ -391,9 +391,9 @@
 .hero__deal-timer {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 12px;
-  font-size: 11px;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  font-size: var(--text-small);
 }
 
 .hero__deal-timer-label {
@@ -410,17 +410,17 @@
 
 .hero__deal-button {
   width: 100%;
-  margin-top: 14px;
+  margin-top: 0.875rem;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   .hero-grid {
     grid-template-columns: 1fr;
   }
 
   .hero__sidebar {
     min-height: auto;
-    padding-bottom: 8px;
+    padding-bottom: var(--space-2);
   }
 
   .hero__sidebar-list {
@@ -429,40 +429,40 @@
   }
 
   .hero__banner {
-    min-height: 360px;
+    min-height: 22.5rem;
   }
 
   .hero__deal-card {
-    min-height: 420px;
+    min-height: 26.25rem;
   }
 
   .hero__deal-content {
-    min-height: 420px;
+    min-height: 26.25rem;
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 639px) {
   .hero__banner::after {
     background: linear-gradient(0deg, rgba(35, 12, 24, 0.88) 0%, rgba(35, 12, 24, 0.66) 58%, rgba(35, 12, 24, 0.12) 100%);
   }
 
   .hero__banner-copy {
     width: 100%;
-    min-height: 400px;
-    padding: 28px 20px 88px;
+    min-height: 25rem;
+    padding: 1.75rem 1.25rem 5.5rem;
   }
 
   .hero__slider-controls {
-    right: 20px;
-    bottom: 20px;
+    right: 1.25rem;
+    bottom: 1.25rem;
   }
 
   .hero__deal-card {
-    min-height: 420px;
+    min-height: 26.25rem;
   }
 
   .hero__deal-content {
-    padding: 16px;
+    padding: var(--space-4);
   }
 }
 

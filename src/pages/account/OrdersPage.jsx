@@ -59,7 +59,7 @@ function OrdersPage() {
                   onClick={() => toggleTracking(order)}
                 >
                   {trackingOrder === order.id ? 'Hide details' : isDelivered ? 'View order' : 'Track order'}
-                  <ArrowRight size={14} />
+                  <ArrowRight size="0.875rem" />
                 </button>
               </div>
               {trackingOrder === order.id ? (

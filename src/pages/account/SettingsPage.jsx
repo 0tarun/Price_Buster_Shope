@@ -126,7 +126,7 @@ function SettingsPage() {
                 aria-describedby={passwordErrors.currentPassword ? 'current-password-error' : undefined}
               />
               <button type="button" className="account-password-toggle" onClick={() => toggleVisibility('currentPassword')} aria-label={visiblePasswords.currentPassword ? 'Hide current password' : 'Show current password'}>
-                {visiblePasswords.currentPassword ? <EyeOff size={17} /> : <Eye size={17} />}
+                {visiblePasswords.currentPassword ? <EyeOff size="1.0625rem" /> : <Eye size="1.0625rem" />}
               </button>
             </span>
             {passwordErrors.currentPassword ? <span className="account-field__error" id="current-password-error">{passwordErrors.currentPassword}</span> : null}
@@ -152,7 +152,7 @@ function SettingsPage() {
                     aria-describedby={passwordErrors[field.name] ? `${field.name}-error` : undefined}
                   />
                   <button type="button" className="account-password-toggle" onClick={() => toggleVisibility(field.name)} aria-label={`${visiblePasswords[field.name] ? 'Hide' : 'Show'} ${field.label.toLowerCase()}`}>
-                    {visiblePasswords[field.name] ? <EyeOff size={17} /> : <Eye size={17} />}
+                    {visiblePasswords[field.name] ? <EyeOff size="1.0625rem" /> : <Eye size="1.0625rem" />}
                   </button>
                 </span>
                 {passwordErrors[field.name] ? <span className="account-field__error" id={`${field.name}-error`}>{passwordErrors[field.name]}</span> : null}

@@ -111,7 +111,7 @@ function ProfilePage() {
               <h2>Personal information</h2>
               <p>Keep these details current for a smoother shop and delivery experience.</p>
             </div>
-            <span className="profile-form-card__icon" aria-hidden="true"><UserRound size={19} /></span>
+            <span className="profile-form-card__icon" aria-hidden="true"><UserRound size="1.1875rem" /></span>
           </div>
 
           <div className="profile-form__grid">
@@ -141,7 +141,7 @@ function ProfilePage() {
             </span>
             <button className="account-button" type="submit" disabled={saving || !hasChanges}>
               {saving ? 'Saving…' : 'Save changes'}
-              {!saving ? <ArrowRight size={14} /> : null}
+              {!saving ? <ArrowRight size="0.875rem" /> : null}
             </button>
           </div>
         </form>
@@ -158,20 +158,20 @@ function ProfilePage() {
           <section className="profile-shortcuts">
             <span className="account-eyebrow">Account shortcuts</span>
             <Link to="/account/settings" className="profile-shortcut">
-              <span className="profile-shortcut__icon"><ShieldCheck size={17} /></span>
+              <span className="profile-shortcut__icon"><ShieldCheck size="1.0625rem" /></span>
               <span className="profile-shortcut__copy">
                 <strong>Security &amp; preferences</strong>
                 <small>Manage your password and updates</small>
               </span>
-              <ArrowRight size={15} />
+              <ArrowRight size="0.9375rem" />
             </Link>
             <Link to="/account/addresses" className="profile-shortcut">
-              <span className="profile-shortcut__icon"><MapPin size={17} /></span>
+              <span className="profile-shortcut__icon"><MapPin size="1.0625rem" /></span>
               <span className="profile-shortcut__copy">
                 <strong>Saved addresses</strong>
                 <small>Choose where your finds arrive</small>
               </span>
-              <ArrowRight size={15} />
+              <ArrowRight size="0.9375rem" />
             </Link>
           </section>
         </aside>

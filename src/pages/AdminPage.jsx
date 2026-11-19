@@ -481,7 +481,7 @@ function AdminPage() {
           <p>প্রোডাক্ট, ব্যানার এবং customer video পরিচালনা করুন।</p>
         </div>
         <button type="button" className="admin-button admin-button--light" onClick={handleLogout}>
-          <LogOut size={16} /> লগআউট
+          <LogOut size="1rem" /> লগআউট
         </button>
       </header>
 
@@ -490,7 +490,7 @@ function AdminPage() {
 
       <section className="admin-panel">
         <div className="admin-panel__heading">
-          <ImagePlus size={20} />
+          <ImagePlus size="1.25rem" />
           <div><h2>{editingHeroId ? 'বড় ব্যানার সম্পাদনা' : 'বড় ব্যানার যোগ করুন'}</h2><p>একাধিক ব্যানার যোগ করুন; হোমপেজে এগুলো স্লাইড হিসেবে দেখাবে।</p></div>
         </div>
         <form onSubmit={handleHeroSubmit} className="admin-form admin-form--hero">
@@ -521,8 +521,8 @@ function AdminPage() {
             <article className="admin-product" key={slide.id}>
               <img src={slide.image} alt="" />
               <div className="admin-product__info"><strong>{slide.title}</strong><span>{slide.eyebrow}</span></div>
-              <button type="button" className="admin-icon-button" onClick={() => handleEditHero(slide)} aria-label="ব্যানার সম্পাদনা"><Pencil size={17} /></button>
-              <button type="button" className="admin-icon-button admin-icon-button--danger" onClick={() => handleDeleteHero(slide)} aria-label="ব্যানার মুছুন"><Trash2 size={17} /></button>
+              <button type="button" className="admin-icon-button" onClick={() => handleEditHero(slide)} aria-label="ব্যানার সম্পাদনা"><Pencil size="1.0625rem" /></button>
+              <button type="button" className="admin-icon-button admin-icon-button--danger" onClick={() => handleDeleteHero(slide)} aria-label="ব্যানার মুছুন"><Trash2 size="1.0625rem" /></button>
             </article>
           )) : <p className="admin-empty">এখনো কোনো বড় ব্যানার যোগ করা হয়নি।</p>}
         </div>
@@ -530,7 +530,7 @@ function AdminPage() {
 
       <section className="admin-panel">
         <div className="admin-panel__heading">
-          <ImagePlus size={20} />
+          <ImagePlus size="1.25rem" />
           <div><h2>পাশের ছোট ব্যানার</h2><p>হোমপেজের প্রধান ব্যানারের পাশের অফারটি সেট করুন।</p></div>
         </div>
         <form onSubmit={handleSideBannerSubmit} className="admin-form admin-form--hero">
@@ -564,7 +564,7 @@ function AdminPage() {
 
       <section className="admin-panel">
         <div className="admin-panel__heading">
-          <ImagePlus size={20} />
+          <ImagePlus size="1.25rem" />
           <div><h2>{editingVideoId ? 'Customer video সম্পাদনা' : 'Customer video যোগ করুন'}</h2><p>ভিডিও Cloudinary-তে, আর ভিডিওর তথ্য MongoDB-তে সংরক্ষিত হবে।</p></div>
         </div>
         <form onSubmit={handleCustomerVideoSubmit} className="admin-form admin-form--hero">
@@ -593,8 +593,8 @@ function AdminPage() {
             <article className="admin-product" key={video.id}>
               <video src={video.videoUrl} preload="metadata" />
               <div className="admin-product__info"><strong>{video.product}</strong><span>{video.author} · {video.quote}</span></div>
-              <button type="button" className="admin-icon-button" onClick={() => handleEditVideo(video)} aria-label="ভিডিও সম্পাদনা"><Pencil size={17} /></button>
-              <button type="button" className="admin-icon-button admin-icon-button--danger" onClick={() => handleDeleteVideo(video)} aria-label="ভিডিও মুছুন"><Trash2 size={17} /></button>
+              <button type="button" className="admin-icon-button" onClick={() => handleEditVideo(video)} aria-label="ভিডিও সম্পাদনা"><Pencil size="1.0625rem" /></button>
+              <button type="button" className="admin-icon-button admin-icon-button--danger" onClick={() => handleDeleteVideo(video)} aria-label="ভিডিও মুছুন"><Trash2 size="1.0625rem" /></button>
             </article>
           )) : <p className="admin-empty">এখনো কোনো ভিডিও যোগ করা হয়নি।</p>}
         </div>
@@ -602,7 +602,7 @@ function AdminPage() {
 
       <section className="admin-panel">
         <div className="admin-panel__heading">
-          <PackagePlus size={20} />
+          <PackagePlus size="1.25rem" />
           <div><h2>{editingProduct ? 'প্রোডাক্ট সম্পাদনা' : 'নতুন প্রোডাক্ট যোগ করুন'}</h2><p>তথ্য MongoDB-তে এবং ছবি Cloudinary-তে সংরক্ষিত হবে।</p></div>
         </div>
         <form onSubmit={handleProductSubmit} className="admin-form">
@@ -649,7 +649,7 @@ function AdminPage() {
 
       <section className="admin-panel">
         <div className="admin-panel__heading">
-          <PackagePlus size={20} />
+          <PackagePlus size="1.25rem" />
           <div><h2>সংরক্ষিত প্রোডাক্ট</h2><p>{products.length}টি প্রোডাক্ট</p></div>
         </div>
         {products.length ? (
@@ -661,8 +661,8 @@ function AdminPage() {
                   <strong>{product.name}</strong>
                   <span>{product.categoryLabel || product.category} · ৳ {Number(product.price).toLocaleString('en-BD')} · স্টক {product.stockLeft}</span>
                 </div>
-                <button type="button" className="admin-icon-button" onClick={() => startEditing(product)} aria-label={`${product.name} সম্পাদনা`}><Pencil size={17} /></button>
-                <button type="button" className="admin-icon-button admin-icon-button--danger" onClick={() => handleDelete(product)} aria-label={`${product.name} মুছুন`}><Trash2 size={17} /></button>
+                <button type="button" className="admin-icon-button" onClick={() => startEditing(product)} aria-label={`${product.name} সম্পাদনা`}><Pencil size="1.0625rem" /></button>
+                <button type="button" className="admin-icon-button admin-icon-button--danger" onClick={() => handleDelete(product)} aria-label={`${product.name} মুছুন`}><Trash2 size="1.0625rem" /></button>
               </article>
             ))}
           </div>

@@ -43,7 +43,7 @@ export function Gallery({ product }) {
         )}
         {images.length ? (
           <button type="button" className="product-gallery__zoom" aria-label="Open product image gallery" onClick={() => { setLightboxMode('image'); setLightboxOpen(true); }}>
-            <Search size={16} strokeWidth={2} />
+            <Search size="1rem" strokeWidth={2} />
           </button>
         ) : null}
       </div>
@@ -71,7 +71,7 @@ export function Gallery({ product }) {
           aria-label="Play product video"
         >
           <div className="product-gallery__video-overlay">
-            <Play size={14} strokeWidth={2} fill="currentColor" />
+            <Play size="0.875rem" strokeWidth={2} fill="currentColor" />
             <span>Video</span>
           </div>
         </button>

@@ -11,7 +11,7 @@ export function QuantityStepper({ value, min = 1, max = 10, onChange }) {
         aria-label="Decrease quantity"
         onClick={() => onChange(clamp(value - 1))}
       >
-        <Minus size={14} strokeWidth={2} />
+        <Minus size="0.875rem" strokeWidth={2} />
       </button>
       <span className="quantity-stepper__value">{value}</span>
       <button
@@ -20,7 +20,7 @@ export function QuantityStepper({ value, min = 1, max = 10, onChange }) {
         aria-label="Increase quantity"
         onClick={() => onChange(clamp(value + 1))}
       >
-        <Plus size={14} strokeWidth={2} />
+        <Plus size="0.875rem" strokeWidth={2} />
       </button>
     </div>
   );

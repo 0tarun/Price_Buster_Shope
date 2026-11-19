@@ -22,7 +22,7 @@ const TrustStrip = () => {
       <div className="trust-strip__grid">
         {trustItems.map(({ icon: Icon, title, subtitle }) => (
           <div key={title} className="trust-strip__item">
-            <Icon size={24} strokeWidth={1.6} />
+            <Icon size="1.5rem" strokeWidth={1.6} />
             <div>
               <div className="trust-strip__title">{title}</div>
               <div className="trust-strip__subtitle">{subtitle}</div>

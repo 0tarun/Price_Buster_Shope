@@ -48,7 +48,7 @@ const Reviews = () => {
         </div>
         <Link to="/blog" className="reviews__link">
           <span>Explore the journal</span>
-          <ArrowUpRight size={10} strokeWidth={2} />
+          <ArrowUpRight size="0.625rem" strokeWidth={2} />
         </Link>
       </div>
 
@@ -58,7 +58,7 @@ const Reviews = () => {
             <div className="review-card__media">
               <video src={review.videoUrl} aria-label={`${review.product} review by ${review.author}`} preload="metadata" playsInline />
               <button type="button" className="review-card__play" aria-label={`Play ${review.quote}`} onClick={() => setActiveReview(review)}>
-                <Play size={18} fill="currentColor" strokeWidth={0} />
+                <Play size="1.125rem" fill="currentColor" strokeWidth={0} />
               </button>
             </div>
             <div className="review-card__caption">
@@ -73,7 +73,7 @@ const Reviews = () => {
         <div className="video-modal" onClick={() => setActiveReview(null)} role="dialog" aria-modal="true" aria-label="Video preview">
           <div className="video-modal__panel" onClick={(event) => event.stopPropagation()}>
             <button type="button" className="video-modal__close" onClick={() => setActiveReview(null)} aria-label="Close video preview">
-              <X size={18} strokeWidth={2} />
+              <X size="1.125rem" strokeWidth={2} />
             </button>
             <video className="video-modal__video" controls autoPlay playsInline src={activeReview.videoUrl} />
             <h3>{activeReview.quote}</h3>

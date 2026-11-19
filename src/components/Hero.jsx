@@ -101,17 +101,17 @@ const Hero = () => {
             return (
               <Link key={slug} to={`/category/${slug}`} className={isActive ? 'hero__department hero__department--active' : 'hero__department'}>
                 <div className="hero__department-main">
-                  <Icon size={18} strokeWidth={1.7} />
+                  <Icon size="1.125rem" strokeWidth={1.7} />
                   <span>{name}</span>
                 </div>
-                <ChevronRight size={14} strokeWidth={1.8} />
+                <ChevronRight size="0.875rem" strokeWidth={1.8} />
               </Link>
             );
           })}
         </div>
         <Link to="/new" className="hero__sidebar-link">
           <span>Explore all categories</span>
-          <ChevronRight size={12} strokeWidth={2} />
+          <ChevronRight size="0.75rem" strokeWidth={2} />
         </Link>
       </aside>
 
@@ -131,7 +131,7 @@ const Hero = () => {
             {slide.productId ? (
               <Link to={`/product/${slide.productId}`} className="primary-button hero__cta">
                 <span>{slide.buttonLabel || 'Shop now'}</span>
-                <ChevronRight size={14} strokeWidth={2} />
+                <ChevronRight size="0.875rem" strokeWidth={2} />
               </Link>
             ) : null}
             {slides.length > 1 ? (
@@ -139,7 +139,7 @@ const Hero = () => {
                 <div className="hero__slider-controls" aria-label="Hero slider controls">
                   <div className="hero__counter">{String(activeIndex + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}</div>
                   <button type="button" className="hero__slider-button" onClick={() => goToSlide((activeIndex - 1 + slides.length) % slides.length)} aria-label="Previous slide">
-                    <ArrowLeft size={14} strokeWidth={2} />
+                    <ArrowLeft size="0.875rem" strokeWidth={2} />
                   </button>
                   <div className="hero__slider-dots">
                     {slides.map((item, index) => (
@@ -147,7 +147,7 @@ const Hero = () => {
                     ))}
                   </div>
                   <button type="button" className="hero__slider-button" onClick={() => goToSlide((activeIndex + 1) % slides.length)} aria-label="Next slide">
-                    <ArrowRight size={14} strokeWidth={2} />
+                    <ArrowRight size="0.875rem" strokeWidth={2} />
                   </button>
                 </div>
               </>
@@ -180,7 +180,7 @@ const Hero = () => {
               {sideBanner.productId ? (
                 <Link to={`/product/${sideBanner.productId}`} className="primary-button hero__deal-button">
                   <span>{sideBanner.buttonLabel || 'Shop now'}</span>
-                  <ChevronRight size={14} strokeWidth={2} />
+                  <ChevronRight size="0.875rem" strokeWidth={2} />
                 </Link>
               ) : null}
             </div>

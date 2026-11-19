@@ -6,7 +6,7 @@
 }
 
 .site-header--topbar-hidden {
-  top: calc(-1 * var(--topbar-height, 87px));
+  top: calc(-1 * var(--topbar-height, 5.4375rem));
 }
 
 @media (prefers-reduced-motion: reduce) {

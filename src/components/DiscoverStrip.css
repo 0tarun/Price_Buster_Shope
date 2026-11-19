@@ -2,15 +2,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 64px;
-  margin-top: 56px;
-  padding: 16px 24px;
-  border-radius: 16px;
+  min-height: 4rem;
+  margin-top: 3.5rem;
+  padding: var(--space-4) var(--space-6);
+  border-radius: 1rem;
   background: var(--beige);
 }
 
 .discover-strip__text {
-  font-size: 15px;
+  font-size: var(--text-lg);
   font-weight: 600;
   color: var(--text);
 }
@@ -18,13 +18,13 @@
 .discover-strip__link {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 12px;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
   font-weight: 600;
   color: var(--burgundy);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 639px) {
   .discover-strip {
     flex-direction: column;
     align-items: flex-start;

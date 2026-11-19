@@ -58,7 +58,7 @@ function WishlistPage() {
       ) : null}
       {!loading && !savedProducts.length ? (
         <div className="account-empty account-empty--panel">
-          <Heart size={22} />
+          <Heart size="1.375rem" />
           <p>Your wishlist is waiting for its first lovely find.</p>
           <Link className="account-button" to="/">Explore the shop</Link>
         </div>

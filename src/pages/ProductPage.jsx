@@ -246,7 +246,7 @@ function ProductPage() {
           <ProductDetailsTable details={product.details} />
           <Link to="/blog" className="product-ritual__story-link">
             Read the full product story
-            <ArrowRight size={14} strokeWidth={2} />
+            <ArrowRight size="0.875rem" strokeWidth={2} />
           </Link>
         </div>
       </section>
@@ -261,7 +261,7 @@ function ProductPage() {
           <strong>{Number(product.price || product.current || 0).toLocaleString('en-BD', { style: 'currency', currency: 'BDT', maximumFractionDigits: 0 })}</strong>
         </div>
         <button type="button" className="product-page__floating-button" onClick={handleAddToBag}>
-          <Sparkles size={14} strokeWidth={2} />
+          <Sparkles size="0.875rem" strokeWidth={2} />
           Add to bag
         </button>
       </div>

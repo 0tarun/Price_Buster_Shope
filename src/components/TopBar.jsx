@@ -111,15 +111,15 @@ const TopBar = ({ hidden, onHiddenChange }) => {
 
         <div className="topbar__actions">
           <Link to="/blog" className="topbar__action" aria-label="Read the blog">
-            <FileText size={24} strokeWidth={1.8} />
+            <FileText size="1.5rem" strokeWidth={1.8} />
             <span>Blog</span>
           </Link>
           <Link to={isAuthenticated ? '/account' : '/login'} className="topbar__action" aria-label="Your account">
-            <User size={24} strokeWidth={1.8} />
+            <User size="1.5rem" strokeWidth={1.8} />
             <span>Account</span>
           </Link>
           <Link to="/cart" className="topbar__action topbar__action--cart" aria-label="View cart">
-            <ShoppingBag size={24} strokeWidth={1.8} />
+            <ShoppingBag size="1.5rem" strokeWidth={1.8} />
             <span>Cart</span>
             {itemCount > 0 ? <span className="topbar__badge">{itemCount}</span> : null}
           </Link>

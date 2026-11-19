@@ -32,7 +32,7 @@ const ActivityBanner = () => {
       </div>
       <Link to={`/product/${product.id}`} className="activity-banner__link">
         <span>Discover this product</span>
-        <ArrowRight size={12} strokeWidth={2} />
+        <ArrowRight size="0.75rem" strokeWidth={2} />
       </Link>
     </section>
   );

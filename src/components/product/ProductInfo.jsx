@@ -88,7 +88,7 @@ export function ProductInfo({
         <QuantityStepper value={quantity} min={1} max={maxQty} onChange={onQuantityChange} />
 
         <button type="button" className="product-info__cta product-info__cta--primary" onClick={handleAddToBag}>
-          <ShoppingBag size={16} strokeWidth={2} />
+          <ShoppingBag size="1rem" strokeWidth={2} />
           {added ? 'Added ✓' : 'Add to bag'}
         </button>
 
@@ -103,18 +103,18 @@ export function ProductInfo({
           aria-label={isWishlisted ? 'Remove from wishlist' : 'Save to wishlist'}
           aria-pressed={isWishlisted}
         >
-          <Heart size={18} strokeWidth={1.8} fill={isWishlisted ? 'currentColor' : 'none'} />
+          <Heart size="1.125rem" strokeWidth={1.8} fill={isWishlisted ? 'currentColor' : 'none'} />
         </button>
       </div>
 
       <button type="button" className="product-info__save-later" onClick={onSaveForLater}>
-        <Heart size={14} strokeWidth={1.8} />
+        <Heart size="0.875rem" strokeWidth={1.8} />
         Save for later
       </button>
 
       <div className="product-info__delivery">
         <div className="product-info__delivery-header">
-          <Truck size={16} strokeWidth={2} />
+          <Truck size="1rem" strokeWidth={2} />
           <span>{product.delivery?.eta || '2–4 working days'}</span>
         </div>
         <p>{product.delivery?.note || 'Free delivery on orders over ৳ 2,000. Easy 7-day returns.'}</p>

@@ -50,16 +50,16 @@ function CartPage() {
 
               <div className="cart-item__qty">
                 <button type="button" aria-label={`Decrease ${item.name}`} onClick={() => updateQuantity(item.id, item.quantity - 1)}>
-                  <Minus size={14} strokeWidth={2} />
+                  <Minus size="0.875rem" strokeWidth={2} />
                 </button>
                 <span>{item.quantity}</span>
                 <button type="button" aria-label={`Increase ${item.name}`} onClick={() => updateQuantity(item.id, item.quantity + 1)}>
-                  <Plus size={14} strokeWidth={2} />
+                  <Plus size="0.875rem" strokeWidth={2} />
                 </button>
               </div>
 
               <button type="button" className="cart-item__remove" onClick={() => removeFromCart(item.id)} aria-label={`Remove ${item.name}`}>
-                <Trash2 size={16} strokeWidth={2} />
+                <Trash2 size="1rem" strokeWidth={2} />
               </button>
             </article>
           ))}

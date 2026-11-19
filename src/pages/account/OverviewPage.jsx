@@ -59,7 +59,7 @@ function OverviewPage() {
             <h2>Your latest order</h2>
           </div>
           <Link className="account-text-link" to="/account/orders">
-            All orders <ArrowRight size={14} />
+            All orders <ArrowRight size="0.875rem" />
           </Link>
         </div>
         {latestOrder ? (
@@ -85,7 +85,7 @@ function OverviewPage() {
               </div>
             </div>
             <Link to="/account/orders" className="account-overview-order__link">
-              Track your order <ArrowRight size={14} />
+              Track your order <ArrowRight size="0.875rem" />
             </Link>
           </article>
         ) : (
@@ -97,7 +97,7 @@ function OverviewPage() {
         <section className="account-overview-detail">
           <div className="account-overview-detail__heading">
             <h2>Your details</h2>
-            <Link to="/account/profile" aria-label="Edit your details"><ArrowRight size={15} /></Link>
+            <Link to="/account/profile" aria-label="Edit your details"><ArrowRight size="0.9375rem" /></Link>
           </div>
           <strong>{overview.profile?.name || 'Add your name'}</strong>
           <span>{overview.profile?.email || 'Add your email address'}</span>
@@ -106,7 +106,7 @@ function OverviewPage() {
         <section className="account-overview-detail">
           <div className="account-overview-detail__heading">
             <h2>Your go-to address</h2>
-            <Link to="/account/addresses" aria-label="Manage your addresses"><ArrowRight size={15} /></Link>
+            <Link to="/account/addresses" aria-label="Manage your addresses"><ArrowRight size="0.9375rem" /></Link>
           </div>
           {defaultAddress ? (
             <>

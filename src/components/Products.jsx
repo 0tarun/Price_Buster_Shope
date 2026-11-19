@@ -39,7 +39,7 @@ export function ProductCard({
             onClick={onRemoveFromWishlist}
             aria-label={`Remove ${product.name} from wishlist`}
           >
-            <Heart size={18} strokeWidth={1.7} />
+            <Heart size="1.125rem" strokeWidth={1.7} />
           </button>
         </div>
       ) : (
@@ -60,14 +60,14 @@ export function ProductCard({
             aria-label={isWishlisted ? `Remove ${product.name} from saved items` : `Save ${product.name} for later`}
             aria-pressed={isWishlisted}
           >
-            <Heart size={18} strokeWidth={1.8} fill={isWishlisted ? 'currentColor' : 'none'} />
+            <Heart size="1.125rem" strokeWidth={1.8} fill={isWishlisted ? 'currentColor' : 'none'} />
           </button>
         </div>
       )}
 
       {!isWishlist ? (
         <div className="product-card__rating">
-          <Star size={10} strokeWidth={1.8} fill="currentColor" />
+          <Star size="0.625rem" strokeWidth={1.8} fill="currentColor" />
           <span>{product.rating} ({product.reviewCount ?? product.reviews?.length ?? 0})</span>
         </div>
       ) : null}
@@ -82,7 +82,7 @@ export function ProductCard({
       </div>
 
       <button type="button" className={added ? 'product-card__button product-card__button--added' : 'product-card__button'} onClick={handleAdd}>
-        <Plus size={12} strokeWidth={2} />
+        <Plus size="0.75rem" strokeWidth={2} />
         <span>{added ? 'Added ✓' : 'Add to bag'}</span>
       </button>
     </article>
@@ -173,7 +173,7 @@ const Products = ({ category, query = '', resultsPromise, isSearch = false }) =>
         <h2>{isSearch ? (query ? `Results for “${query}”` : 'Shop the collection') : 'Your next favourite is here.'}</h2>
         <Link to="/sale" className="products__link">
           <span>Shop all finds</span>
-          <ArrowRight size={12} strokeWidth={2} />
+          <ArrowRight size="0.75rem" strokeWidth={2} />
         </Link>
       </div>
 

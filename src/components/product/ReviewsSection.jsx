@@ -13,7 +13,7 @@ function StarRating({ rating, size = 12, className = '' }) {
         return (
           <Star
             key={`${rating}-${value}`}
-            size={size}
+            size={`${size / 16}rem`}
             className={filled ? 'star-rating__star star-rating__star--filled' : 'star-rating__star'}
             fill={filled ? 'currentColor' : 'none'}
             strokeWidth={1.8}
@@ -82,7 +82,7 @@ export function ReviewsSection({ reviews = [], productName, onSubmitReview }) {
             <span className="product-reviews__score">{averageRating.toFixed(1)}</span>
             <span className="product-reviews__score-label">/ 5</span>
           </div>
-          <StarRating rating={averageRating} size={14} className="product-reviews__stars" />
+          <StarRating rating={averageRating} size="0.875rem" className="product-reviews__stars" />
           <p className="product-reviews__count">{reviews.length} reviews</p>
 
           <div className="product-reviews__distribution">
@@ -100,7 +100,7 @@ export function ReviewsSection({ reviews = [], productName, onSubmitReview }) {
         <div className="product-reviews__list">
           {visibleReviews.map((review, index) => (
             <article key={`${review.name}-${review.date}-${index}`} className="product-review-card">
-              <StarRating rating={review.rating || 5} size={11} />
+              <StarRating rating={review.rating || 5} size="0.6875rem" />
               <h3>{review.title || 'Loved it'}</h3>
               <p>{review.text}</p>
               <div className="product-review-card__meta">
@@ -129,7 +129,7 @@ export function ReviewsSection({ reviews = [], productName, onSubmitReview }) {
         <div className="product-review-modal" onClick={() => setModalOpen(false)} role="dialog" aria-modal="true" aria-label="Write a review">
           <div className="product-review-modal__panel" onClick={(event) => event.stopPropagation()}>
             <button type="button" className="product-review-modal__close" onClick={() => setModalOpen(false)} aria-label="Close review form">
-              <X size={18} strokeWidth={2} />
+              <X size="1.125rem" strokeWidth={2} />
             </button>
 
             <h3>Write a review for {productName}</h3>
@@ -158,7 +158,7 @@ export function ReviewsSection({ reviews = [], productName, onSubmitReview }) {
                       onClick={() => setForm({ ...form, rating: star })}
                       aria-label={`Rate ${star} out of 5`}
                     >
-                      <Star size={18} strokeWidth={1.8} fill={star <= form.rating ? 'currentColor' : 'none'} />
+                      <Star size="1.125rem" strokeWidth={1.8} fill={star <= form.rating ? 'currentColor' : 'none'} />
                     </button>
                   ))}
                 </div>
@@ -171,7 +171,7 @@ export function ReviewsSection({ reviews = [], productName, onSubmitReview }) {
               </label>
 
               <button type="submit" className="product-review-modal__submit">
-                <Check size={16} strokeWidth={2} />
+                <Check size="1rem" strokeWidth={2} />
                 Submit review
               </button>
             </form>

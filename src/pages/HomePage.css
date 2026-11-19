@@ -1,15 +1,15 @@
 .home-page {
   display: flex;
   flex-direction: column;
-  gap: 44px;
+  gap: 2.75rem;
 }
 
 .home-page > section + section {
   margin-top: 0;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 639px) {
   .home-page {
-    gap: 32px;
+    gap: var(--space-8);
   }
 }

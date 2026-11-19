@@ -79,7 +79,7 @@ const Footer = () => {
           <form className="footer__input-wrap" onSubmit={handleSubmit}>
             <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Your email address" aria-label="Email address" />
             <button type="submit" className="footer__newsletter-button" aria-label="Subscribe">
-              <ArrowRight size={18} strokeWidth={2} />
+              <ArrowRight size="1.125rem" strokeWidth={2} />
             </button>
           </form>
           {message ? <div className="footer__newsletter-message">{message}</div> : null}

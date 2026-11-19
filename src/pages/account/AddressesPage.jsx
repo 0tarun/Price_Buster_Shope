@@ -90,7 +90,7 @@ function AddressesPage() {
         </div>
         {!formOpen ? (
           <button type="button" className="account-button account-button--secondary" onClick={startNew}>
-            <Plus size={15} /> Add address
+            <Plus size="0.9375rem" /> Add address
           </button>
         ) : null}
       </div>
@@ -141,17 +141,17 @@ function AddressesPage() {
         {addresses.map((address) => (
           <article className="account-address-card" key={address.id}>
             <div className="account-address-card__top">
-              <span className="account-address-card__icon"><MapPin size={17} /></span>
+              <span className="account-address-card__icon"><MapPin size="1.0625rem" /></span>
               <div>
                 <h3>{address.label}</h3>
-                {address.isDefault ? <span className="account-default-label"><Star size={12} fill="currentColor" /> Default</span> : null}
+                {address.isDefault ? <span className="account-default-label"><Star size="0.75rem" fill="currentColor" /> Default</span> : null}
               </div>
             </div>
             <p><strong>{address.recipient}</strong><br />{address.phone}<br />{address.street}<br />{address.city}, {address.postalCode}</p>
             <div className="account-address-card__actions">
               <button type="button" className="account-text-button" onClick={() => startEdit(address)}>Edit</button>
               {!address.isDefault ? <button type="button" className="account-text-button" onClick={() => handleDefault(address.id)}>Set default</button> : null}
-              <button type="button" className="account-icon-button" onClick={() => handleDelete(address.id)} aria-label={`Delete ${address.label} address`}><Trash2 size={15} /></button>
+              <button type="button" className="account-icon-button" onClick={() => handleDelete(address.id)} aria-label={`Delete ${address.label} address`}><Trash2 size="0.9375rem" /></button>
             </div>
           </article>
         ))}
